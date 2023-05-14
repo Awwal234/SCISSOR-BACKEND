@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS
 from datetime import timedelta
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
@@ -24,5 +25,6 @@ def create_app():
     api = Api(app, title='Api for Application')
     api.add_namespace(auth_namespace, path='/api/auth')
     api.add_namespace(action_namespace, path='/api/link')
+    CORS(app, origin=api)
 
     return app

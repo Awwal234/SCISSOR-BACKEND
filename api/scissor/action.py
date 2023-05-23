@@ -1,10 +1,26 @@
 from flask_restx import Namespace, Resource, fields
 import requests
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from flask import request
 from http import HTTPStatus
+from flask_caching import Cache
 import json
 from ..models.link import LinkModel
 from flask_jwt_extended import jwt_required
+
+#Caching sysytem
+from flask import Flask
+app = Flask(__name__)
+app.config['CACHE_TYPE'] = 'simple'
+app.config['CACHE_DEFAULT_TIME'] = 300
+
+cache = Cache(app)
+#End Caching system
+#Rate Limiting to Create Short Links
+limiter = Limiter(get_remote_address, app=app, default_limits=["200 per day", "50 per hour"])
+
+#End CodeSpace for Rate Limiting
 
 action_namespace = Namespace('action', description='Namespace for all scissor actions')
 link_model = action_namespace.model('Link',{
@@ -22,6 +38,7 @@ token = '046a5a46fa5509bb74507bea2f497bbbe30e3a7b'
 @action_namespace.route('/shortenlink')
 class ShortenLink(Resource):
     @action_namespace.expect(link_model)
+    @limiter.limit('4 per day')
     @jwt_required()
     def post(self):
         '''
@@ -114,6 +131,7 @@ class BitLink(Resource):
 #List out all link
 @action_namespace.route('/all_link')
 class GetAllLinks(Resource):
+    @cache.cached()
     @action_namespace.marshal_with(alllink_model)
     @jwt_required()
     def get(self):

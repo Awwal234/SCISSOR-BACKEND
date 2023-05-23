@@ -60,7 +60,7 @@ class LoginUser(Resource):
 @auth_namespace.route('/refresh')
 class RefreshToken(Resource):
     @jwt_required(refresh=True)
-    def post(self):
+    def get(self):
         '''
             Refresh user Token
         '''
@@ -93,3 +93,6 @@ class GetUserName(Resource):
         }
 
         return response, HTTPStatus.OK
+        
+        
+#TODO: add rate limiting to my bitly code link

@@ -30,10 +30,18 @@ class signupUser(Resource):
         email = data.get('email')
         password = generate_password_hash(data.get('password'))
         
-        new_user = User(name=name, email=email, password=password)
-        new_user.save()
+        user_exist = User.query.filter_by(email=email).first()
+        if user_exist:
+            response = {
+                'message': 'User already exist'
+            }
+            
+            return response
+        else:
+            new_user = User(name=name, email=email, password=password)
+            new_user.save()
         
-        return new_user, HTTPStatus.CREATED
+            return new_user, HTTPStatus.CREATED
         
 @auth_namespace.route('/login')
 class LoginUser(Resource):

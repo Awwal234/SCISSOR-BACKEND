@@ -36,7 +36,7 @@ class signupUser(Resource):
                 'message': 'User already exist'
             }
             
-            return response
+            return response, HTTPStatus.UNAUTHORIZED
         else:
             new_user = User(name=name, email=email, password=password)
             new_user.save()

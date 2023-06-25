@@ -292,12 +292,9 @@
         "examples": [
           {
             "id": 142,
-            "firstName": "Alice",
-            "lastName": "Smith",
-            "email": "alice.smith@gmail.com",
-            "dateOfBirth": "1997-10-31",
-            "emailVerified": true,
-            "signUpDate": "2019-08-24"
+            "name": "Alice",
+            "email": "alice@gmail.com",
+            "password": "alic12"
           }
         ],
         "x-stoplight": {
@@ -316,20 +313,23 @@
             "type": "string",
             "x-stoplight": {
               "id": "ll36tl7a6z59j"
-            }
+            },
+            "description": "user name"
           },
           "email": {
             "type": "string",
             "format": "email",
             "x-stoplight": {
               "id": "rs0s6jdmggd1d"
-            }
+            },
+            "description": "user email"
           },
           "password": {
             "type": "string",
             "x-stoplight": {
               "id": "fjwjftdjca5r0"
-            }
+            },
+            "description": "user password (length: 6)"
           }
         },
         "required": [

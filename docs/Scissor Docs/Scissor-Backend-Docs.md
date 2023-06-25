@@ -92,10 +92,10 @@ class QRLink(Resource):
 ### -Endpoints
 ______________
 
-- Login : /api/auth/login
-- SignUp : /api/auth/signup
-- Refresh : /api/auth/refresh
-- Get User : /api/auth/getme
-- Shorten Link : /api/link/shortenlink
-- qrCode : /api/link/qrlink (Frontend UI does this also without backend)
-- Get all Links : /api/link/all_link
+- Login : /api/auth/login (POST)
+- SignUp : /api/auth/signup (POST)
+- Refresh : /api/auth/refresh (GET)
+- Get User : /api/auth/getme (GET)
+- Shorten Link : /api/link/shortenlink (POST)
+- qrCode : /api/link/qrlink (Frontend UI does this also without backend due to free tier) (POST)
+- Get all Links : /api/link/all_link (GET)

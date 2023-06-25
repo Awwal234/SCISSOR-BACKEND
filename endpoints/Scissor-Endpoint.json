@@ -1,0 +1,344 @@
+{
+  "openapi": "3.1.0",
+  "x-stoplight": {
+    "id": "k2iek5ni5cwzk"
+  },
+  "info": {
+    "title": "Scissor Endpoint",
+    "version": "1.0",
+    "summary": "This is the API endpoints for scissors project",
+    "description": ""
+  },
+  "servers": [
+    {
+      "url": "http://localhost:5000"
+    }
+  ],
+  "paths": {
+    "/api/auth/signup": {
+      "post": {
+        "summary": "Create New User",
+        "operationId": "post-user",
+        "responses": {
+          "200": {
+            "description": "{\n  \"id\": \"\",\n  \"fullname\": \"\",\n  \"email\": \"\",\n  password: \"\"\n}",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "```json json_schema\r\n{\r\n  \"type\": \"object\",\r\n  \"properties\": {\r\n    \"fullname\": \"Bob Fellow\",\r\n    \"email\": \"bob.fellow@gmail.com\",\r\n    \"password\": \"bob123\",\r\n  }\r\n}\r\n```\r\n",
+                  "properties": {
+                    "id": {
+                      "type": "integer",
+                      "x-stoplight": {
+                        "id": "hipi5wuwkb6n1"
+                      }
+                    },
+                    "fullname": {
+                      "type": "string",
+                      "x-stoplight": {
+                        "id": "j2gepja0575hc"
+                      }
+                    },
+                    "email": {
+                      "type": "string",
+                      "x-stoplight": {
+                        "id": "qhyxlzg9cd9t2"
+                      }
+                    },
+                    "password": {
+                      "type": "string",
+                      "x-stoplight": {
+                        "id": "5wtoxds9wdvd3"
+                      }
+                    }
+                  },
+                  "required": [
+                    "fullname",
+                    "email",
+                    "password"
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing Required Information"
+          },
+          "409": {
+            "description": "Email Already Taken"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "ymk3xwijwu7gw"
+                    }
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "gbxk64y3bsx55"
+                    }
+                  }
+                },
+                "required": [
+                  "name",
+                  "email",
+                  "password"
+                ]
+              },
+              "examples": {
+                "Create User Bob Fellow": {
+                  "value": {
+                    "fullname": "Bob Fellow",
+                    "email": "bob.fellow@gmail.com",
+                    "password": "bob123"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Post the necessary fields for the API to create a new user."
+        },
+        "description": "Create a new user."
+      },
+      "parameters": []
+    },
+    "/api/auth/login": {
+      "post": {
+        "summary": "login user",
+        "tags": [
+          "Login"
+        ],
+        "responses": {},
+        "operationId": "post-login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "qrqoxlj44ttc9"
+                    }
+                  },
+                  "password": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "3ekbsi93b2w5g"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": "Login users"
+      },
+      "parameters": []
+    },
+    "/api/auth/refresh": {
+      "get": {
+        "summary": "refresh tokens",
+        "tags": [
+          "Refresh token"
+        ],
+        "responses": {},
+        "operationId": "get-api-auth-refresh",
+        "description": "Refresh tokens",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Bearer 'Token'",
+            "description": "refresh token from login user token"
+          }
+        ]
+      }
+    },
+    "/api/auth/getme": {
+      "get": {
+        "summary": "get user by access token",
+        "tags": [
+          "Get user"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "x-stoplight": {
+                        "id": "b0feht2p5lh87"
+                      }
+                    },
+                    "email": {
+                      "type": "string",
+                      "x-stoplight": {
+                        "id": "t3x5wtxgy9271"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-api-auth-getme",
+        "description": "Get user info by access token",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Bearer 'Token'",
+            "description": "access toke - Token"
+          }
+        ]
+      }
+    },
+    "/api/link/shorten": {
+      "post": {
+        "summary": "get shorten link",
+        "tags": [
+          "shorten link"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "operationId": "post-api-link-shorten",
+        "description": "Get shorten link",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Bearer 'Token'"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "luczx6nj6h0to"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/link/all_link": {
+      "get": {
+        "summary": "get all links",
+        "tags": [
+          "Display all links"
+        ],
+        "responses": {},
+        "operationId": "get-api-link-all_link",
+        "description": "Display all links",
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "in": "header",
+            "name": "Bearer 'Token'"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "title": "User Model",
+        "type": "object",
+        "examples": [
+          {
+            "id": 142,
+            "firstName": "Alice",
+            "lastName": "Smith",
+            "email": "alice.smith@gmail.com",
+            "dateOfBirth": "1997-10-31",
+            "emailVerified": true,
+            "signUpDate": "2019-08-24"
+          }
+        ],
+        "x-stoplight": {
+          "id": "iq6qmcgt3auc3"
+        },
+        "description": "This is the model for auth process and creating user",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Unique identifier for the given user.",
+            "x-stoplight": {
+              "id": "dk6xdqiittef8"
+            }
+          },
+          "name": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "ll36tl7a6z59j"
+            }
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "x-stoplight": {
+              "id": "rs0s6jdmggd1d"
+            }
+          },
+          "password": {
+            "type": "string",
+            "x-stoplight": {
+              "id": "fjwjftdjca5r0"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "email",
+          "password"
+        ]
+      }
+    }
+  }
+}
